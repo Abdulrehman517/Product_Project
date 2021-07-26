@@ -1,9 +1,9 @@
-from rest_framework import serializers, request
+from rest_framework import serializers
 from products.models import Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # user = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Product
         fields = ['id', 'title', 'tags', 'handle', 'body']

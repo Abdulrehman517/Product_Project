@@ -1,17 +1,14 @@
 from django.http import Http404
 from rest_framework import status
-from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from .serializers import ProductSerializer, ProductPutSerializer
 from products.models import Product
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from products.api.permissions import IsAdminOrReadOnly
-from rest_framework.permissions import IsAuthenticated
+from products.api.permissions import MyPermission
 
 
 class ProductList(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [MyPermission]
 
     def get(self, request):
         products = Product.objects.all()
@@ -28,7 +25,7 @@ class ProductList(APIView):
 
 
 class ProductDetail(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [MyPermission]
     def get_object(self, pk):
         try:
             return Product.objects.get(pk=pk)
